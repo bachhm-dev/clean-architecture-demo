@@ -20,9 +20,8 @@ func NewRedisRepository(client *redis.Client) service.WeatherRepository {
 	return weatherRepository{Client: client}
 }
 
-func (r weatherRepository) GetWeatherFromCache(ctx context.Context, latitude, longitude float64) (*entity.Weather, error) {
+func (r weatherRepository) GetWeather(ctx context.Context, latitude, longitude float64) (*entity.Weather, error) {
 	key := fmt.Sprintf("weather:%f:%f", latitude, longitude)
-
 	data, err := r.Client.Get(ctx, key).Result()
 	if err == redis.Nil {
 		return nil, fmt.Errorf("weather data not found in cache")
@@ -40,7 +39,7 @@ func (r weatherRepository) GetWeatherFromCache(ctx context.Context, latitude, lo
 	return &weather, nil
 }
 
-func (r weatherRepository) SaveWeatherToCache(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error {
+func (r weatherRepository) SaveWeather(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error {
 	key := fmt.Sprintf("weather:%f:%f", latitude, longitude)
 	data, err := json.Marshal(weather)
 	if err != nil {

@@ -11,8 +11,8 @@ type WeatherUsecase interface {
 }
 
 type WeatherRepository interface {
-	GetWeatherFromCache(ctx context.Context, latitude, longitude float64) (*entity.Weather, error)
-	SaveWeatherToCache(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error
+	GetWeather(ctx context.Context, latitude, longitude float64) (*entity.Weather, error)
+	SaveWeather(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error
 }
 
 type OpenMeteoService interface {
