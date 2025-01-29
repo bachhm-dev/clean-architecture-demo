@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/bachhm.dev/clean-architecture-service/entity"
 	"github.com/bachhm.dev/clean-architecture-service/service"
-	"github.com/bachhm.dev/clean-architecture-service/service/entity"
 
-	"github.com/go-redis/redis/v8"
+	// "github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 type weatherRepository struct {
@@ -20,9 +21,8 @@ func NewRedisRepository(client *redis.Client) service.WeatherRepository {
 	return weatherRepository{Client: client}
 }
 
-func (r weatherRepository) GetWeatherFromCache(ctx context.Context, latitude, longitude float64) (*entity.Weather, error) {
+func (r weatherRepository) GetWeather(ctx context.Context, latitude, longitude float64) (*entity.Weather, error) {
 	key := fmt.Sprintf("weather:%f:%f", latitude, longitude)
-
 	data, err := r.Client.Get(ctx, key).Result()
 	if err == redis.Nil {
 		return nil, fmt.Errorf("weather data not found in cache")
@@ -40,7 +40,7 @@ func (r weatherRepository) GetWeatherFromCache(ctx context.Context, latitude, lo
 	return &weather, nil
 }
 
-func (r weatherRepository) SaveWeatherToCache(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error {
+func (r weatherRepository) SaveWeather(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error {
 	key := fmt.Sprintf("weather:%f:%f", latitude, longitude)
 	data, err := json.Marshal(weather)
 	if err != nil {
@@ -48,7 +48,7 @@ func (r weatherRepository) SaveWeatherToCache(ctx context.Context, latitude, lon
 	}
 
 	// Cache the data for 1 hour
-	err = r.Client.Set(ctx, key, data, time.Hour).Err()
+	err = r.Client.Set(ctx, key, string(data), time.Hour).Err()
 	if err != nil {
 		return err
 	}

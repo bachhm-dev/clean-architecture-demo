@@ -3,21 +3,21 @@ package service
 import (
 	"context"
 
-	"github.com/bachhm.dev/clean-architecture-service/service/entity"
+	"github.com/bachhm.dev/clean-architecture-service/entity"
 )
 
-type WeatherService struct {
+type service struct {
 	repository       WeatherRepository
 	openMeteoService OpenMeteoService
 }
 
-func NewService(repository WeatherRepository, openMeteoService OpenMeteoService) WeatherService {
-	return WeatherService{repository: repository, openMeteoService: openMeteoService}
+func NewService(repository WeatherRepository, openMeteoService OpenMeteoService) service {
+	return service{repository: repository, openMeteoService: openMeteoService}
 }
 
-func (w *WeatherService) GetWeather(ctx context.Context, latitude, longitude float64) (*entity.Weather, error) {
+func (w service) GetWeather(ctx context.Context, latitude, longitude float64) (*entity.Weather, error) {
 	// First, check if the weather data exists in the cache/database
-	cachedWeather, err := w.repository.GetWeatherFromCache(ctx, latitude, longitude)
+	cachedWeather, err := w.repository.GetWeather(ctx, latitude, longitude)
 	if err == nil {
 		return cachedWeather, nil
 	}
@@ -29,7 +29,7 @@ func (w *WeatherService) GetWeather(ctx context.Context, latitude, longitude flo
 	}
 
 	// Save it to cache/database for future requests
-	err = w.repository.SaveWeatherToCache(ctx, latitude, longitude, weather)
+	err = w.repository.SaveWeather(ctx, latitude, longitude, weather)
 	if err != nil {
 		return nil, err
 	}

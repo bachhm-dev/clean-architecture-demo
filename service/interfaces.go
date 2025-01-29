@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/bachhm.dev/clean-architecture-service/service/entity"
+	"github.com/bachhm.dev/clean-architecture-service/entity"
 )
 
 type WeatherUsecase interface {
@@ -11,8 +11,8 @@ type WeatherUsecase interface {
 }
 
 type WeatherRepository interface {
-	GetWeatherFromCache(ctx context.Context, latitude, longitude float64) (*entity.Weather, error)
-	SaveWeatherToCache(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error
+	GetWeather(ctx context.Context, latitude, longitude float64) (*entity.Weather, error)
+	SaveWeather(ctx context.Context, latitude, longitude float64, weather *entity.Weather) error
 }
 
 type OpenMeteoService interface {
