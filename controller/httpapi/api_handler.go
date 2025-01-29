@@ -10,10 +10,10 @@ import (
 )
 
 type apiController struct {
-	service service.WeatherService
+	service service.WeatherUsecase
 }
 
-func NewAPIController(s service.WeatherService) apiController {
+func NewAPIController(s service.WeatherUsecase) apiController {
 	return apiController{service: s}
 }
 
@@ -26,7 +26,7 @@ func (wp *WeatherParam) Bind(r *http.Request) error {
 	return nil
 }
 
-func (api apiController) getWeather(w http.ResponseWriter, r *http.Request) {
+func (api apiController) getWeatherHandle(w http.ResponseWriter, r *http.Request) {
 	var param WeatherParam
 
 	longitudeStr := r.URL.Query().Get("longitude")
@@ -59,5 +59,5 @@ func (api apiController) getWeather(w http.ResponseWriter, r *http.Request) {
 }
 
 func (api apiController) SetUpRoute(router chi.Router) {
-	router.Get("/weather", api.getWeather)
+	router.Get("/weather", api.getWeatherHandle)
 }
