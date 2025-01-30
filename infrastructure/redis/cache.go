@@ -6,10 +6,11 @@ import (
 	"fmt"
 	"time"
 
+	"github.com/bachhm.dev/clean-architecture-service/entity"
 	"github.com/bachhm.dev/clean-architecture-service/service"
-	"github.com/bachhm.dev/clean-architecture-service/service/entity"
 
-	"github.com/go-redis/redis/v8"
+	// "github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 type weatherRepository struct {
@@ -47,7 +48,7 @@ func (r weatherRepository) SaveWeather(ctx context.Context, latitude, longitude 
 	}
 
 	// Cache the data for 1 hour
-	err = r.Client.Set(ctx, key, data, time.Hour).Err()
+	err = r.Client.Set(ctx, key, string(data), time.Hour).Err()
 	if err != nil {
 		return err
 	}

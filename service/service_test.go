@@ -4,7 +4,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/bachhm.dev/clean-architecture-service/service/entity"
+	"github.com/bachhm.dev/clean-architecture-service/entity"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 )

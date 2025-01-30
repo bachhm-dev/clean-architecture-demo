@@ -6,8 +6,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/bachhm.dev/clean-architecture-service/entity"
 	"github.com/bachhm.dev/clean-architecture-service/service"
-	"github.com/bachhm.dev/clean-architecture-service/service/entity"
 )
 
 type openMeteoAPI struct{}

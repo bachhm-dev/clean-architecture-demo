@@ -3,7 +3,7 @@ package service
 import (
 	"context"
 
-	"github.com/bachhm.dev/clean-architecture-service/service/entity"
+	"github.com/bachhm.dev/clean-architecture-service/entity"
 )
 
 type WeatherUsecase interface {

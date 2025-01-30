@@ -9,7 +9,9 @@ import (
 	redisRepo "github.com/bachhm.dev/clean-architecture-service/infrastructure/redis"
 	weatherService "github.com/bachhm.dev/clean-architecture-service/service"
 	"github.com/go-chi/chi/v5"
-	"github.com/go-redis/redis/v8"
+
+	// "github.com/go-redis/redis/v8"
+	"github.com/redis/go-redis/v9"
 )
 
 func main() {
