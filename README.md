@@ -15,7 +15,7 @@ Clean Architecture is a software design philosophy that promotes the separation 
 
 ## Overview
 
-![Overview](docs/images/CleanArchitecture.jpg "")
+![Overview](docs/images/CleanArchitecture.jpg)
 
 The concentric circles to represent the layers in a software system. The general principle is:
 
@@ -24,6 +24,8 @@ The concentric circles to represent the layers in a software system. The general
 
 > [!NOTE]  
 > The arrows in the circle do not represent call direction; they represent dependency direction, meaning the low level will depend on the high level.
+
+![Overview](docs/images/explanation.png)
 
 ## Layers of Clean Architecture
 
@@ -54,11 +56,11 @@ The business logic uses Open-Meteo, a third-party service, to retrieve weather d
 
 ### Sequence diagram
 
-![Sequence Diagram](docs/images/sequence-diagram.png "")
+![Sequence Diagram](docs/images/sequence-diagram.png)
 
 ### Class diagram
 
-![Class Diagram](docs/images/class-diagram.png "")
+![Class Diagram](docs/images/class-diagram.png)
 
 ### Project structure
 
@@ -66,7 +68,7 @@ The business logic uses Open-Meteo, a third-party service, to retrieve weather d
 weather-app/
 │
 ├── controller/        # Main entry points (e.g., server)
-├── service/entity     # Business entities
+├── entity/            # Business entities
 ├── service/           # Use cases
 ├── infrastructure/    # API calls, database, etc.
 ├── go.mod             # Go module file
